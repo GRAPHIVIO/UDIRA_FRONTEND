@@ -12,6 +12,8 @@ import {
   Settings,
   LogOut,
   Shield,
+  Box,
+  Beaker,
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import clsx from 'clsx';
@@ -25,6 +27,8 @@ const MENU_ITEMS = [
   { icon: FileText, label: 'Grades', path: '/grades', roles: ['admin', 'teacher', 'student'] },
   { icon: DollarSign, label: 'Payments', path: '/payments', roles: ['admin', 'student'] },
   { icon: Shield, label: 'BOM', path: '/bom', roles: ['admin'] },
+  { icon: Box, label: 'Assets', path: '/assets', roles: ['admin'] },
+  { icon: Beaker, label: 'Laboratory', path: '/labs', roles: ['admin', 'teacher'] },
   { icon: Settings, label: 'Profile', path: '/profile', roles: ['admin', 'teacher', 'student'] },
 ];
 

@@ -15,6 +15,7 @@ import {
 } from '../utils/mockData';
 import { useAuth } from '../hooks/useAuth';
 import { fetchClasses } from '../services/gradesService';
+import { fetchDashboardStats } from '../services/dashboardService';
 
 const COLORS = ['#2f6660', '#ACABA7', '#4d8d85', '#bfbeba'];
 
@@ -23,9 +24,21 @@ export default function TeacherDashboard() {
   const navigate = useNavigate();
   const [selectedClass, setSelectedClass] = useState('');
   const [availableClasses, setAvailableClasses] = useState([]);
+  const [stats, setStats] = useState(teacherDashboardStats);
 
-  // Load classes on mount
+  // Load classes and stats on mount
   useEffect(() => {
+    fetchDashboardStats().then(data => {
+      if (data) {
+        setStats({
+          ...teacherDashboardStats,
+          myStudents: data.totalStudents, // Fallback for now
+          myClasses: data.totalClasses,
+          avgAttendance: data.attendanceToday,
+        });
+      }
+    });
+
     fetchClasses()
       .then(data => {
         const list = (data.results || data);
@@ -64,10 +77,10 @@ export default function TeacherDashboard() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatsCard icon={Users} label="My Students" value={teacherDashboardStats.myStudents} change={8} />
-        <StatsCard icon={BookOpen} label="Assigned Classes" value={teacherDashboardStats.myClasses} change={0} />
-        <StatsCard icon={ClipboardCheck} label="Avg. Attendance" value={`${teacherDashboardStats.avgAttendance}%`} change={2.5} />
-        <StatsCard icon={GraduationCap} label="Pending Grades" value={teacherDashboardStats.pendingGrades} change={-12} />
+        <StatsCard icon={Users} label="My Students" value={stats.myStudents} change={8} />
+        <StatsCard icon={BookOpen} label="Assigned Classes" value={stats.myClasses} change={0} />
+        <StatsCard icon={ClipboardCheck} label="Avg. Attendance" value={`${stats.avgAttendance}%`} change={2.5} />
+        <StatsCard icon={GraduationCap} label="Pending Grades" value={stats.pendingGrades} change={-12} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

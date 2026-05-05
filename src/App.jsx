@@ -13,6 +13,8 @@ import BOM from './pages/BOM'
 import Profile from './pages/Profile'
 import StudentProfile from './pages/StudentProfile'
 import TeacherProfile from './pages/TeacherProfile'
+import Assets from './pages/Assets'
+import Labs from './pages/Labs'
 import Login from './pages/Login'
 import { useAuth } from './hooks/useAuth'
 
@@ -48,6 +50,8 @@ function App() {
           <Route path="grades" element={<Grades />} />
           <Route path="payments" element={<Payments />} />
           {user?.role === 'admin' && <Route path="bom" element={<BOM />} />}
+          <Route path="assets" element={<Assets />} />
+          <Route path="labs" element={<Labs />} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>

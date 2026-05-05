@@ -482,3 +482,75 @@ export const mockBOMMembers = [
     since: "2019"
   }
 ];
+
+export const mockLocations = [
+  { id: 1, name: "Lab 1", location_type: "lab" },
+  { id: 2, name: "Class 10-A", location_type: "classroom" },
+  { id: 3, name: "Principal Office", location_type: "office" },
+];
+
+export const mockAssets = [
+  {
+    id: 1,
+    asset_code: "FUR-001",
+    name: "Standard Student Desk",
+    category: "furniture",
+    purchase_date: "2023-01-10",
+    cost: 4500,
+    condition: "good",
+    location_id: 2,
+    location_name: "Class 10-A",
+    assigned_to: 1,
+    assigned_to_name: "MR. ERICK OPONDO"
+  },
+  {
+    id: 2,
+    asset_code: "ELE-001",
+    name: "Epson Projector X41",
+    category: "electronics",
+    purchase_date: "2022-05-20",
+    cost: 55000,
+    condition: "good",
+    location_id: 1,
+    location_name: "Lab 1",
+    assigned_to: null,
+    assigned_to_name: "Unassigned"
+  }
+];
+
+export const mockAssetLogs = [
+  { id: 1, asset_id: 1, from_location: "Storage", to_location: "Class 10-A", moved_by: "Admin", date: "2024-01-15 10:00 AM" },
+];
+
+export const mockLabInventory = [
+  {
+    id: 1,
+    name: "Hydrochloric Acid (HCl)",
+    category: "chemical",
+    quantity: 2.5,
+    unit: "Litres",
+    expiry_date: "2025-12-01",
+    location_id: 1,
+    location_name: "Lab 1",
+    safety_notes: "Highly corrosive. Handle with gloves."
+  },
+  {
+    id: 2,
+    name: "Bunsen Burner",
+    category: "equipment",
+    quantity: 15,
+    unit: "Pieces",
+    expiry_date: null,
+    location_id: 1,
+    location_name: "Lab 1",
+    safety_notes: "Check for gas leaks before use."
+  }
+];
+
+export const mockLabTransactions = [
+  { id: 1, inventory_id: 1, type: "IN", quantity: 5.0, date: "2024-01-10", handled_by: "Admin" },
+];
+
+export const mockLabUsage = [
+  { id: 1, class_id: 1, class_name: "10-A", teacher_id: 1, teacher_name: "MR. ERICK OPONDO", date: "2024-01-15", topic_experiment: "Acid-Base Titration", notes: "All students wore goggles." },
+];

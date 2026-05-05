@@ -26,12 +26,14 @@ import {
 } from '../utils/mockData';
 import { generateExcelReport, generatePDFReport } from '../utils/reportUtils';
 import { fetchRankedResults } from '../services/gradesService';
+import { fetchDashboardStats } from '../services/dashboardService';
 
 const COLORS = ['#2f6660', '#ACABA7', '#4d8d85', '#bfbeba'];
 
 function Dashboard() {
   const { user } = useAuth();
   const [isGenerating, setIsGenerating] = React.useState(false);
+  const [stats, setStats] = useState(mockDashboardStats);
   const [topStudents, setTopStudents] = useState([
     { name: 'Emma Taylor', marks: '1069', rank: 1, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emma', class_name: '10-A' },
     { name: 'Alice Chen',  marks: '1005', rank: 2, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alice', class_name: '10-A' },
@@ -40,6 +42,10 @@ function Dashboard() {
   const [isExamPortalOpen, setIsExamPortalOpen] = useState(false);
 
   useEffect(() => {
+    fetchDashboardStats().then(data => {
+      if (data) setStats(data);
+    });
+
     fetchRankedResults()
       .then(data => {
         if (data && data.length > 0) {
@@ -99,25 +105,25 @@ function Dashboard() {
         <StatsCard
           icon={Users}
           label="Total Students"
-          value={mockDashboardStats.totalStudents}
+          value={stats.totalStudents}
           change={12}
         />
         <StatsCard
           icon={BookOpen}
           label="Total Teachers"
-          value={mockDashboardStats.totalTeachers}
+          value={stats.totalTeachers}
           change={5}
         />
         <StatsCard
           icon={Briefcase}
           label="Total Classes"
-          value={mockDashboardStats.totalClasses}
+          value={stats.totalClasses}
           change={2}
         />
         <StatsCard
           icon={TrendingUp}
           label="Attendance Today"
-          value={`${mockDashboardStats.attendanceToday}%`}
+          value={`${stats.attendanceToday}%`}
           change={3}
         />
       </div>
